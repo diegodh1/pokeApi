@@ -1,20 +1,32 @@
 package com.example.poke.pokeApi.models;
 import java.util.ArrayList;
 
+import com.example.poke.pokeApi.models.ExternalApi.PokemonApiAbility;
+import com.example.poke.pokeApi.models.ExternalApi.PokemonApiType;
+
 public class Pokemon {
     //attributes
     private String name;
     private String photo;
-    private String type;
-    private ArrayList<String> abilities;
+    private int height;
+    private int weight;
+    private ArrayList<PokemonApiType> types;
+    private ArrayList<PokemonApiAbility> abilities;
     private String description;
     private ArrayList<String> evolutions;
 
+    //empty constructor
+    public Pokemon(){
+
+    }
+
     //constructor
-    public Pokemon(String name, String photo, String type, ArrayList<String> abilities, String description, ArrayList<String> evolutions){
+    public Pokemon(String name, String photo,int height, int weight, ArrayList<PokemonApiType> types, ArrayList<PokemonApiAbility> abilities, String description, ArrayList<String> evolutions){
         this.name = name;
         this.photo = photo;
-        this.type = type;
+        this.height = height;
+        this.weight = weight;
+        this.types = types;
         this.abilities = abilities;
         this.description = description;
         this.evolutions = evolutions;
@@ -31,14 +43,23 @@ public class Pokemon {
     public void setPhoto(String value){
         this.photo = value;
     }
+    //set height
+    public void setHeight(int value){
+        this.height = value;
+    }
+
+    //set weight
+    public void setWeight(int value){
+        this.weight = value;
+    }
 
     //set type value
-    public void setType(String value){
-        this.type = value;
+    public void setTypes(ArrayList<PokemonApiType> value){
+        this.types = value;
     }
 
     //set abilities value
-    public void setAbilities(ArrayList<String> value){
+    public void setAbilities(ArrayList<PokemonApiAbility> value){
         this.abilities = value;
     }
 
@@ -54,27 +75,37 @@ public class Pokemon {
 
     //getters
 
-    //get the pokemon name
+    //get the pokemons name
     public String getName(){
         return name;
     }
-    //get the pokemon photo
+    //get the pokemons photo
     public String getPhoto(){
         return photo;
     }
-    //get the pokemon type
-    public String getType(){
-        return type;
+    //get the pokemons height
+    public int getHeight(){
+        return height;
     }
-    //get the pokemon abilities
-    public ArrayList<String> getAbilities(){
+
+    //get the pokemons height
+    public int getWeight(){
+        return weight;
+    }
+
+    //get the pokemons type
+    public ArrayList<PokemonApiType> getType(){
+        return types;
+    }
+    //get the pokemons abilities
+    public ArrayList<PokemonApiAbility> getAbilities(){
         return abilities;
     }
-    //get the pokemon description
+    //get the pokemons description
     public String getDescription(){
         return description;
     }
-    //get the pokemon evolutions
+    //get the pokemons evolutions
     public ArrayList<String> getEvolutions(){
         return evolutions;
     }

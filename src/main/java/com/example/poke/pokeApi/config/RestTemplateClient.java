@@ -1,4 +1,4 @@
-package com.example.poke.pokeApi;
+package com.example.poke.pokeApi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
