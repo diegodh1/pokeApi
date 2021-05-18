@@ -7,6 +7,7 @@ import com.example.poke.pokeApi.models.ExternalApi.PokemonApiListResponse;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonInfoApiResponse;
 import com.example.poke.pokeApi.repositories.PokemonApiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public class PokeApiService {
     }
 
     //get the pokemons list
-    @Cacheable(cacheNames = "pokemons", key="#limit + #offset")
+    @Cacheable("pokemons")
     public PokemonListResponse getPokemons(String limit, String offset){
         //call the pokemons list from the external api
         PokemonApiListResponse result =  repository.getAllPokemons(limit, offset);
@@ -56,7 +57,7 @@ public class PokeApiService {
         return pokemonList;
     }
 
-    @Cacheable("name")
+    @Cacheable("pokemon")
     //get the basic informacion from a pokemon
     public PokemonInfoApiResponse getInfoPokemon(String name){
         return repository.getInfoPokemon(name);
