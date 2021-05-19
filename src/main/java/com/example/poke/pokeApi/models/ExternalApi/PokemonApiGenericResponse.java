@@ -10,7 +10,9 @@ public class PokemonApiGenericResponse {
     
     //Constructor
     public PokemonApiGenericResponse(String name, String url){
+        //name of the property
         this.name = name;
+        //to get more information url of the property
         this.url = url;
     }
 

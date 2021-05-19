@@ -12,7 +12,6 @@ import com.example.poke.pokeApi.models.ExternalApi.PokemonApiSpecie;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonApiStat;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonInfoApiResponse;
 import com.example.poke.pokeApi.repositories.PokemonApiRepositoryImpl;
-import com.example.poke.pokeApi.services.PokeApiService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

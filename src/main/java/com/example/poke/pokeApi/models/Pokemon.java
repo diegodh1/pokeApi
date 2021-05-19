@@ -7,16 +7,25 @@ import com.example.poke.pokeApi.models.ExternalApi.PokemonApiDescription;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonApiStat;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonApiType;
 
+import io.swagger.annotations.ApiModel;
+
+
+@ApiModel(description = "basic information about a pokemon")
 public class Pokemon {
     //attributes
     private String name;
     private String photo;
     private int height;
     private int weight;
+    //the pokemon's types
     private ArrayList<PokemonApiType> types;
+    //the pokemon's abilities
     private ArrayList<PokemonApiAbility> abilities;
+    //the pokemon's chain evolution
     private PokemonApiChainEvolution evolutions;
+    //the pokemon's stats
     private ArrayList<PokemonApiStat> stats;
+    //the pokemon's descriptions
     private ArrayList<PokemonApiDescription> descriptions;
 
     //empty constructor

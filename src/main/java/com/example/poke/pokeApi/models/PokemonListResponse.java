@@ -1,6 +1,11 @@
 package com.example.poke.pokeApi.models;
 import java.util.ArrayList;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+
+@ApiModel(description = "give all the pokemons in a list")
 public class PokemonListResponse {
     private int count;
     private String next;
@@ -9,9 +14,13 @@ public class PokemonListResponse {
 
     //constructor
     public PokemonListResponse(int count, String next, String previous, ArrayList<Pokemon> results){
+        //the total number of pokemons in the list
         this.count = count;
+        //the url to get the next pokemons in the list"
         this.next = next;
+        //the url to get the previous pokemons in the list
         this.previous = previous;
+        //the pokemons list"
         this.results = results;
     }
 
