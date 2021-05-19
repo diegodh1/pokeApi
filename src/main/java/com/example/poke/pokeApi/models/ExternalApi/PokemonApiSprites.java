@@ -50,10 +50,4 @@ public class PokemonApiSprites {
     public PokemonApiOther getOther(){
         return this.other;
     }
-    //toString
-    @Override
-    public String toString(){
-        return String.format("PokemonApiSprites{frontShiny=%s, front_default=%s, other=%s}", this.frontShiny, this.frontDefault, this.other.toString());
-    }
-    
 }

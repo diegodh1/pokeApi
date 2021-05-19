@@ -3,19 +3,21 @@ import java.util.ArrayList;
 
 import com.example.poke.pokeApi.models.Pokemon;
 import com.example.poke.pokeApi.models.PokemonListResponse;
+import com.example.poke.pokeApi.models.ExternalApi.PokemonApiChainEvolution;
+import com.example.poke.pokeApi.models.ExternalApi.PokemonApiCharacteristic;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonApiListResponse;
+import com.example.poke.pokeApi.models.ExternalApi.PokemonApiSpecie;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonInfoApiResponse;
-import com.example.poke.pokeApi.repositories.PokemonApiRepository;
+import com.example.poke.pokeApi.repositories.PokemonApiRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PokeApiService {
+public class PokeApiService{
 
     @Autowired
-    private PokemonApiRepository repository;
+    private PokemonApiRepositoryImpl repository;
     //empty constructor
     public PokeApiService(){
 
@@ -29,15 +31,17 @@ public class PokeApiService {
         //prepare the final response
         PokemonListResponse pokemonList = new PokemonListResponse();
         if(result != null){
-            //set the final response attributes
+            //the total number of elements
             pokemonList.setCount(result.getCount());
-            pokemonList.setNext(result.getNext());
-            pokemonList.setPrevious(result.getPrevious());
+            //the next elements of the list
+            if(result.getNext()!=null)pokemonList.setNext(result.getNext());
+            //the previous elements of the list
+            if(result.getPrevious()!=null)pokemonList.setPrevious(result.getPrevious());
             ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
             //for each pokemon from the external api list get the basic information of each one
             for(int i = 0; i <result.getResults().size(); i++){
                 //call the external api to get the pokemon's basic information
-                PokemonInfoApiResponse pokemonTemp = repository.getInfoPokemon(result.getResults().get(i).getName());
+                PokemonInfoApiResponse pokemonTemp = repository.getPokemonInfo(result.getResults().get(i).getName());
                 if(pokemonTemp != null){
                     //if pokemon basic information is not null set the attributes of the pokemon
                     Pokemon temp = new Pokemon();
@@ -57,10 +61,35 @@ public class PokeApiService {
         return pokemonList;
     }
 
+    //get the information detail from a pokemon
     @Cacheable("pokemon")
-    //get the basic informacion from a pokemon
-    public PokemonInfoApiResponse getInfoPokemon(String name){
-        return repository.getInfoPokemon(name);
+    public Pokemon getInfoPokemon(String name){
+        Pokemon pokemon = new Pokemon();
+        //search the pokemon in the external api rest
+        PokemonInfoApiResponse result =  repository.getPokemonInfo(name);
+        if(result != null){
+            //setting the attributes
+            pokemon.setPhoto(result.getSprites().getOther().getDreamWorld().getFrontDefault());
+            pokemon.setHeight(result.getHeight());
+            pokemon.setWeight(result.getWeight());
+            pokemon.setName(result.getName());
+            pokemon.setStats(result.getStats());
+            pokemon.setAbilities(result.getAbilities());
+            pokemon.setTypes(result.getTypes());
+            PokemonApiSpecie specie = repository.getPokemonSpecie(name);
+            PokemonApiChainEvolution chain = repository.getEvolutions(specie.getEvolutionChain().getUrl());
+            int characteristicID = repository.getPokemonCharacteristicID(pokemon.getStats());
+            //get the pokemon's description
+            if(characteristicID > 0){
+                PokemonApiCharacteristic characteristic = repository.getPokemonCharacteristics(characteristicID);
+                if(characteristic != null){
+                    pokemon.setDescriptions(characteristic.getDescriptions());
+                }
+            }
+            pokemon.setEvolutions(chain);
+        }
+        //only returns if the pokemon exists if not we throw an exception 404 not found
+        return pokemon;
     }
 
     

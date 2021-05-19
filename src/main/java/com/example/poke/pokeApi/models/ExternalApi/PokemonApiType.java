@@ -35,10 +35,4 @@ public class PokemonApiType {
         return type;
     }
 
-    //toString
-    @Override
-    public String toString(){
-        return String.format("PokemonApiType{slot=%d, type=%s}", slot, type);
-    }
-
 }

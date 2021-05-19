@@ -40,9 +40,4 @@ public class PokemonApiGenericResponse {
     public String getUrl(){
         return url;
     }
-
-    @Override
-    public String toString(){
-        return String.format("PokemonApiGenericResponse{name=%s, url=%s}", this.name, this.url);
-    }
 }

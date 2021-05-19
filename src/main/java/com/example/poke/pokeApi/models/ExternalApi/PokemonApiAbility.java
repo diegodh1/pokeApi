@@ -48,10 +48,4 @@ public class PokemonApiAbility {
     public int getSlot(){
         return slot;
     }
-
-    //TO STRING
-    @Override
-    public String toString(){
-        return String.format("PokemonApiAbility{ability = %s, isHidden=%b, slot=%d}", ability.toString(), this.isHidden, slot);
-    }
 }

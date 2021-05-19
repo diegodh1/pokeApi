@@ -40,10 +40,4 @@ public class PokemonApiOther {
         return this.officialArtwork;
     }
 
-    //toString
-    @Override
-    public String toString(){
-        return String.format("PokemonApiOther{dreamWorld=%s, officialArtwork=%s}", this.dreamWorld.toString(), this.officialArtwork.toString());
-    }
-    
 }

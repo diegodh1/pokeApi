@@ -37,7 +37,7 @@ public class PokemonApiListResponse {
     }
 
     //set previous value
-    public void setprevious(String value){
+    public void setPrevious(String value){
         this.previous = value;
     }
 
@@ -64,10 +64,5 @@ public class PokemonApiListResponse {
     public ArrayList<PokemonApiGenericResponse> getResults(){
         return results;
     } 
-
-    @Override
-    public String toString(){
-        return String.format("PokemonApiListResponse{count=%d, next=%s, previous=%s, results=%s}", this.count, this.next, this.previous, this.results.toString());
-    }
 
 }

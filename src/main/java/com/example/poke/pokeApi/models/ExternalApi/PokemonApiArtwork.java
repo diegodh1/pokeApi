@@ -26,10 +26,4 @@ public class PokemonApiArtwork {
     public PokemonApiPhoto getOfficialArtWork(){
         return officialArtWork;
     }
-
-    //toString
-    @Override
-    public String toString(){
-        return String.format("PokemonApiArtwork{officialArtWork=%s}", officialArtWork.toString());
-    }
 }

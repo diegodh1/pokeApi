@@ -29,11 +29,4 @@ public class PokemonApiPhoto {
     public String getFrontDefault(){
         return frontDefault;
     }
-
-
-    //toString
-    @Override
-    public String toString(){
-        return String.format("PokemonApiPhoto{front_default=%s}", this.frontDefault);
-    }
 }

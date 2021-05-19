@@ -12,6 +12,7 @@ public class PokemonInfoApiResponse {
     private String name;
     private ArrayList<PokemonApiType> types;
     private PokemonApiSprites sprites;
+    private ArrayList<PokemonApiStat> stats;
 
     //empty constructor
     public PokemonInfoApiResponse(){
@@ -19,7 +20,7 @@ public class PokemonInfoApiResponse {
     }
 
     //constructor
-    public PokemonInfoApiResponse(ArrayList<PokemonApiAbility> abilities, int height, int weight, int id, String name, ArrayList<PokemonApiType> types, PokemonApiSprites sprites){
+    public PokemonInfoApiResponse(ArrayList<PokemonApiAbility> abilities, int height, int weight, int id, String name, ArrayList<PokemonApiType> types, PokemonApiSprites sprites, ArrayList<PokemonApiStat>  stats){
         this.abilities = abilities;
         this.height = height;
         this.weight = weight;
@@ -27,10 +28,10 @@ public class PokemonInfoApiResponse {
         this.name = name;
         this.types = types;
         this.sprites = sprites;
+        this.stats = stats;
     }
 
     //setters
-
     public void setAbilities(ArrayList<PokemonApiAbility> value){
         this.abilities = value;
     }
@@ -59,8 +60,13 @@ public class PokemonInfoApiResponse {
         this.sprites = value;
     }
 
-    //getters
+    public void setStats(ArrayList<PokemonApiStat>  value){
+        this.stats = value;
+    }
 
+
+
+    //getters
     public ArrayList<PokemonApiAbility> getAbilities(){
         return this.abilities;
     }
@@ -89,11 +95,8 @@ public class PokemonInfoApiResponse {
         return this.sprites;
     }
 
-    //toString
-    @Override
-    public String toString() {
-        return String.format("PokemonInfoApiResponse{abilities=%s, height=%d, weight=%s, id=%d, name=%s, types=%s, sprites=%s}",
-        this.abilities.toString(), this.height, this.weight, this.id, this.name, this.types.toString(), this.sprites.toString());
+    public ArrayList<PokemonApiStat>  getStats(){
+        return stats;
     }
-    
+
 }

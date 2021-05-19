@@ -2,6 +2,9 @@ package com.example.poke.pokeApi.models;
 import java.util.ArrayList;
 
 import com.example.poke.pokeApi.models.ExternalApi.PokemonApiAbility;
+import com.example.poke.pokeApi.models.ExternalApi.PokemonApiChainEvolution;
+import com.example.poke.pokeApi.models.ExternalApi.PokemonApiDescription;
+import com.example.poke.pokeApi.models.ExternalApi.PokemonApiStat;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonApiType;
 
 public class Pokemon {
@@ -12,8 +15,9 @@ public class Pokemon {
     private int weight;
     private ArrayList<PokemonApiType> types;
     private ArrayList<PokemonApiAbility> abilities;
-    private String description;
-    private ArrayList<String> evolutions;
+    private PokemonApiChainEvolution evolutions;
+    private ArrayList<PokemonApiStat> stats;
+    private ArrayList<PokemonApiDescription> descriptions;
 
     //empty constructor
     public Pokemon(){
@@ -21,15 +25,16 @@ public class Pokemon {
     }
 
     //constructor
-    public Pokemon(String name, String photo,int height, int weight, ArrayList<PokemonApiType> types, ArrayList<PokemonApiAbility> abilities, String description, ArrayList<String> evolutions){
+    public Pokemon(String name, String photo,int height, int weight, ArrayList<PokemonApiType> types, ArrayList<PokemonApiAbility> abilities, ArrayList<PokemonApiStat> stats, PokemonApiChainEvolution evolutions, ArrayList<PokemonApiDescription> descriptions){
         this.name = name;
         this.photo = photo;
         this.height = height;
         this.weight = weight;
         this.types = types;
         this.abilities = abilities;
-        this.description = description;
+        this.stats = stats;
         this.evolutions = evolutions;
+        this.descriptions = descriptions;
     }
      
     //setters
@@ -64,12 +69,17 @@ public class Pokemon {
     }
 
     //set description value
-    public void setDescription(String value){
-        this.description = value;
+    public void setDescriptions(ArrayList<PokemonApiDescription> value){
+        this.descriptions = value;
+    }
+
+    //set stats value
+    public void setStats(ArrayList<PokemonApiStat> value){
+        this.stats = value;
     }
 
     //set evolutions value
-    public void setEvolutions(ArrayList<String> value){
+    public void setEvolutions(PokemonApiChainEvolution value){
         this.evolutions = value;
     }
 
@@ -102,11 +112,15 @@ public class Pokemon {
         return abilities;
     }
     //get the pokemons description
-    public String getDescription(){
-        return description;
+    public ArrayList<PokemonApiDescription>  getDescriptions(){
+        return descriptions;
+    }
+    //get the pokemon's stats
+    public ArrayList<PokemonApiStat> getStats(){
+        return stats;
     }
     //get the pokemons evolutions
-    public ArrayList<String> getEvolutions(){
+    public PokemonApiChainEvolution getEvolutions(){
         return evolutions;
     }
 
