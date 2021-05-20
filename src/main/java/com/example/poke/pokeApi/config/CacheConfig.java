@@ -13,7 +13,8 @@ public class CacheConfig {
         Config config = new Config();
 
         MapConfig mapConfig = new MapConfig();
-        mapConfig.setTimeToLiveSeconds(300);
+        //time to be in the cache infinity
+        mapConfig.setTimeToLiveSeconds(0);
         config.getMapConfigs().put("pokemons", mapConfig);
         config.getMapConfigs().put("pokemon", mapConfig);
          return config;

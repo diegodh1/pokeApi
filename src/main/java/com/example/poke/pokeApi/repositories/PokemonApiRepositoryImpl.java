@@ -37,23 +37,16 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
         url = offset!= null? limit!= null? url + String.format("&offset=%s", offset): url + String.format("offset=%s", offset): url;
         //call external api
         try{
-            //convert the request params to int
-            int limitNumber = limit!= null?Integer.parseInt(limit):0;
-            //the limit of elements should be less than 30 to better performance
-            if(limitNumber > 30){
-                throw new ApiResponseError("the limit of items should be less than 30 to better performance");
-            }
+
             PokemonApiListResponse result = restTemplate.getForObject(url, PokemonApiListResponse.class);
-            
-            
             //set the url for previous and next results
             if(result.getNext()!=null){
                 String[] next = result.getNext().split("\\?");
-                result.setNext(System.getenv("pokeApiURL")+"/pokemons?"+next[1]);
+                result.setNext("https://pokemonservice.uc.r.appspot.com/api/pokemons?"+next[1]);
             }
             if(result.getPrevious()!=null){
                 String[] prev = result.getPrevious().split("\\?");
-                result.setPrevious(System.getenv("pokeApiURL")+"/pokemons?"+prev[1]);
+                result.setPrevious("https://pokemonservice.uc.r.appspot.com/api/pokemons?"+prev[1]);
             }
             
             return result;
