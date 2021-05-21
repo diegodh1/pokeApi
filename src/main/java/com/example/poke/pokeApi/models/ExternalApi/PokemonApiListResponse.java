@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonApiListResponse {
+    //variables
     private int count;
     private String next;
     private String previous;

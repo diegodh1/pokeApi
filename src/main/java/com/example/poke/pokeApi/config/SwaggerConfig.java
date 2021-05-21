@@ -8,6 +8,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+//this configuration allow us to create swagger documentation and of this way create all the information about this API Rest automatically
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

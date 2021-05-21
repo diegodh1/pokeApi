@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.example.poke.pokeApi.interfaces.PokemonApiRepositoryInterface;
 import com.example.poke.pokeApi.models.Exceptions.ApiNotFoundResponse;
-import com.example.poke.pokeApi.models.Exceptions.ApiResponseError;
 import com.example.poke.pokeApi.models.Exceptions.InternalResponseError;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonApiChainEvolution;
 import com.example.poke.pokeApi.models.ExternalApi.PokemonApiCharacteristic;
@@ -20,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
-    //attributes
+    //variables
     @Autowired
     private RestTemplate restTemplate;
     private static String baseUrl = "https://pokeapi.co/api/v2";
@@ -35,27 +34,23 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
         String url = baseUrl+"/pokemon?";
         url = limit!= null? url + String.format("limit=%s", limit): url;
         url = offset!= null? limit!= null? url + String.format("&offset=%s", offset): url + String.format("offset=%s", offset): url;
-        //call external api
         try{
-
+            //call external api
             PokemonApiListResponse result = restTemplate.getForObject(url, PokemonApiListResponse.class);
             //set the url for previous and next results
             if(result.getNext()!=null){
                 String[] next = result.getNext().split("\\?");
-                result.setNext("https://pokemonservice.uc.r.appspot.com/api/pokemons?"+next[1]);
+                result.setNext("https://pokemonservicev2.uc.r.appspot.com/api/pokemons?"+next[1]);
             }
             if(result.getPrevious()!=null){
                 String[] prev = result.getPrevious().split("\\?");
-                result.setPrevious("https://pokemonservice.uc.r.appspot.com/api/pokemons?"+prev[1]);
+                result.setPrevious("https://pokemonservicev2.uc.r.appspot.com/api/pokemons?"+prev[1]);
             }
             
             return result;
         }
-        catch(ApiResponseError e){
-            throw new ApiResponseError(e.toString());
-        }
-        catch(NumberFormatException e){
-            throw new ApiResponseError("the request params should be integers");
+        catch(HttpClientErrorException e){
+            throw new ApiNotFoundResponse(e.toString());
         }
         catch(Exception e){
             throw new InternalResponseError(e.toString());
@@ -66,6 +61,7 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
     public PokemonInfoApiResponse getPokemonInfo(String name){
         String url = baseUrl+"/pokemon/" + String.format("%s", name);
         try{
+            //call external api
             PokemonInfoApiResponse result = restTemplate.getForObject(url, PokemonInfoApiResponse.class);
             return result;
         }
@@ -78,7 +74,7 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
 
     }
 
-    //get the basic information from a pokemon
+    //get the pokemon's evolutions
     public PokemonApiChainEvolution getEvolutions(String url){
         try{
             PokemonApiChainEvolution result = restTemplate.getForObject(url, PokemonApiChainEvolution.class);
@@ -93,7 +89,7 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
 
     }
 
-    //get the pokemon's highest individual value
+    //get the pokemon's characteristic ID that depends from HIV
     //time complexity O(n)
 
     //characteristics are divided in five groups, a group(0,1,2,3,4) refers to the remainder of divide 
@@ -102,7 +98,9 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
     //we need to make the operation 6 * (HIV % 5) + position of the maximum characteristic. for example:
     //pokemon1 has the next stats{HP=10, Attack=15, Defense=20, Special Attack=5, Special Defense=7, Speed=8}
     //so the characteristic ID is 6 * (20 % 5) + 3 = 3  and searching in the table of https://bulbapedia.bulbagarden.net/wiki/Characteristic
-    //we can see that the value for the characteristicID = 3 is Sturdy body.
+    //we can see that the value for the characteristicID = 3 is Sturdy body. we can see the the table like a matrix and each characteric Id
+    //is a cell example the cell #1 = "Loves to eat", cell #2 = "Proud of its power", cell #8 = "Likes to thrash about"
+    //to make sure that is of this way we can https://pokeapi.co/api/v2/characteristic/8/ test the hypothesis here
     public int getPokemonCharacteristicID(ArrayList<PokemonApiStat> stats){
         if(stats.isEmpty()){
             return -1;
@@ -120,7 +118,7 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
         }
     }
 
-    //get information about the pokemon's description
+    //the method getPokemonCharacteristics allow us to know about the pokemon's description
     public PokemonApiCharacteristic getPokemonCharacteristics(int id){
         String url = baseUrl+"/characteristic/" + String.format("%d", id);
         try{
@@ -136,7 +134,7 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
 
     }
 
-    //get the pokemon species we need this method because to pokemon's evolutions depends of the specie
+    //we need this method because the pokemons evolutions depends of his species
     public PokemonApiSpecie getPokemonSpecie(String name){
         String url = baseUrl+"/pokemon-species/" + String.format("%s", name);
         try{

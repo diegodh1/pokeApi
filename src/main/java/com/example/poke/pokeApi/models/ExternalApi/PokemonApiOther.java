@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonApiOther {
-    //attributes
+    //variables
     @JsonAlias("dream_world")
     private PokemonApiPhoto dreamWorld;
     @JsonAlias("official-artwork")

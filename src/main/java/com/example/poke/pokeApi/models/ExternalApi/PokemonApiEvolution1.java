@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonApiEvolution1 {
     
-    //attributes
+    //variables
     @JsonAlias("is_baby")
     private Boolean isBaby;
     private PokemonApiGenericResponse species;

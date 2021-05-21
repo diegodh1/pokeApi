@@ -2,11 +2,11 @@ package com.example.poke.pokeApi.models;
 import java.util.ArrayList;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 
 @ApiModel(description = "give all the pokemons in a list")
 public class PokemonListResponse {
+    //variables
     private int count;
     private String next;
     private String previous;

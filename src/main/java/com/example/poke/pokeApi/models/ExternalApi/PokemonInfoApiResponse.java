@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PokemonInfoApiResponse {
     
-    //attributes
+    //variables
     private ArrayList<PokemonApiAbility> abilities;
     private int height;
     private int weight;

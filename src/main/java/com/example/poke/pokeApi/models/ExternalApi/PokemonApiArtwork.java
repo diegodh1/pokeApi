@@ -7,7 +7,7 @@ public class PokemonApiArtwork {
     //attributes
     private PokemonApiPhoto officialArtWork;
 
-    //empty constructor
+    //variables
     public PokemonApiArtwork(){
 
     }

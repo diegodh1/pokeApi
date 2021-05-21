@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.MapConfig;
 
+
+//cache configuration
 @Configuration
 @EnableCaching
 public class CacheConfig {
@@ -13,8 +15,9 @@ public class CacheConfig {
         Config config = new Config();
 
         MapConfig mapConfig = new MapConfig();
-        //time to be in the cache infinity
+        //time of the information to stay in the cache
         mapConfig.setTimeToLiveSeconds(0);
+        //the requests that we want to store in the cache
         config.getMapConfigs().put("pokemons", mapConfig);
         config.getMapConfigs().put("pokemon", mapConfig);
          return config;

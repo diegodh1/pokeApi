@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PokemonApiCharacteristic {
 
-    //attributes
+    //variables
     private ArrayList<PokemonApiDescription> descriptions;
 
     //empty constructor

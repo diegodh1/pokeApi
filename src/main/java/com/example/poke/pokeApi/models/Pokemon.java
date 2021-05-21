@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModel;
 
 @ApiModel(description = "basic information about a pokemon")
 public class Pokemon {
-    //attributes
+    //variables
     private String name;
     private String photo;
     private int height;

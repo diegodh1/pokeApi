@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonApiGenericResponse {
-    //attributes
+    //variables
     private String name;
     private String url;
     

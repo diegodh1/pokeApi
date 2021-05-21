@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 
 public class PokemonApiStat {
 
-    //attributes
+    //variables
     @JsonAlias("base_stat")
     private int baseStat;
     private int effort;

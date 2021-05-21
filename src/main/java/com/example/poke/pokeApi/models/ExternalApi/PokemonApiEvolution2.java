@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 
 public class PokemonApiEvolution2 {
 
-    //attributes
+    //variables
     @JsonAlias("is_baby")
     private Boolean isBaby;
     private PokemonApiGenericResponse species;

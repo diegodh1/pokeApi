@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonApiPhoto {
 
-    //attributes
+    //variables
     @JsonAlias("front_default")
     private String frontDefault;
 

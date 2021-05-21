@@ -2,7 +2,7 @@ package com.example.poke.pokeApi.models.ExternalApi;
 
 public class PokemonApiDescription {
     
-    //attributes
+    //variables
     private String description;
     private PokemonApiGenericResponse language;
 

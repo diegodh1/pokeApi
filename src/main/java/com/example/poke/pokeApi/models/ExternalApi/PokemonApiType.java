@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonApiType {
+    //variables
     private int slot;
     private PokemonApiGenericResponse type;
 

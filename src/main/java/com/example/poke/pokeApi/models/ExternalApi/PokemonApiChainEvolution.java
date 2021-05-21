@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonApiChainEvolution {
 
-    //attributes
+    //variables
     @JsonAlias("chain")
     private PokemonApiEvolutions chain;
 

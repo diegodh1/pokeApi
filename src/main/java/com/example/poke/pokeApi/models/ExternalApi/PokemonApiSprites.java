@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonApiSprites {
 
-    //attributes
+    //variables
     @JsonAlias("front_shiny")
     private String frontShiny;
     @JsonAlias("front_default")
