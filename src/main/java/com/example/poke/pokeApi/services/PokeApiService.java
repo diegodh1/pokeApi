@@ -92,6 +92,7 @@ public class PokeApiService {
 				PokemonInfoApiResponse pokemonTemp = repository.getPokemonInfo(name);
 				// the code below is only possible if pokemon exists
 				Pokemon temp = new Pokemon();
+				temp.setID(pokemonTemp.getID());
 				temp.setPhoto(pokemonTemp.getSprites().getOther().getDreamWorld().getFrontDefault());
 				temp.setHeight(pokemonTemp.getHeight());
 				temp.setWeight(pokemonTemp.getWeight());
@@ -107,10 +108,10 @@ public class PokeApiService {
 
 	// get the information detail from a pokemon
 	@Cacheable("pokemon")
-	public Pokemon getInfoPokemon(String name) {
+	public Pokemon getInfoPokemon(String nameOrID) {
 		Pokemon pokemon = new Pokemon();
 		// search the pokemon in the external api rest
-		PokemonInfoApiResponse result = repository.getPokemonInfo(name);
+		PokemonInfoApiResponse result = repository.getPokemonInfo(nameOrID);
 		if (result != null) {
 			// setting the attributes
 			pokemon.setPhoto(result.getSprites().getOther().getDreamWorld().getFrontDefault());
@@ -120,7 +121,7 @@ public class PokeApiService {
 			pokemon.setStats(result.getStats());
 			pokemon.setAbilities(result.getAbilities());
 			pokemon.setTypes(result.getTypes());
-			PokemonApiSpecie specie = repository.getPokemonSpecie(name);
+			PokemonApiSpecie specie = repository.getPokemonSpecie(nameOrID);
 			PokemonApiChainEvolution chain = repository.getEvolutions(specie.getEvolutionChain().getUrl());
 			int characteristicID = repository.getPokemonCharacteristicID(pokemon.getStats());
 			// get the pokemon's description

@@ -58,8 +58,8 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
     }
 
     //get the basic information from a pokemon
-    public PokemonInfoApiResponse getPokemonInfo(String name){
-        String url = baseUrl+"/pokemon/" + String.format("%s", name);
+    public PokemonInfoApiResponse getPokemonInfo(String nameOrID){
+        String url = baseUrl+"/pokemon/" + String.format("%s", nameOrID);
         try{
             //call external api
             PokemonInfoApiResponse result = restTemplate.getForObject(url, PokemonInfoApiResponse.class);
@@ -135,8 +135,8 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
     }
 
     //we need this method because the pokemons evolutions depends of his species
-    public PokemonApiSpecie getPokemonSpecie(String name){
-        String url = baseUrl+"/pokemon-species/" + String.format("%s", name);
+    public PokemonApiSpecie getPokemonSpecie(String nameOrID){
+        String url = baseUrl+"/pokemon-species/" + String.format("%s", nameOrID);
         try{
             PokemonApiSpecie result = restTemplate.getForObject(url, PokemonApiSpecie.class);
             return result;

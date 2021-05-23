@@ -17,6 +17,7 @@ public class Pokemon {
     private String photo;
     private int height;
     private int weight;
+    private int id;
     //the pokemon's types
     private ArrayList<PokemonApiType> types;
     //the pokemon's abilities
@@ -34,7 +35,8 @@ public class Pokemon {
     }
 
     //constructor
-    public Pokemon(String name, String photo,int height, int weight, ArrayList<PokemonApiType> types, ArrayList<PokemonApiAbility> abilities, ArrayList<PokemonApiStat> stats, PokemonApiChainEvolution evolutions, ArrayList<PokemonApiDescription> descriptions){
+    public Pokemon(int id, String name, String photo,int height, int weight, ArrayList<PokemonApiType> types, ArrayList<PokemonApiAbility> abilities, ArrayList<PokemonApiStat> stats, PokemonApiChainEvolution evolutions, ArrayList<PokemonApiDescription> descriptions){
+        this.id = id;
         this.name = name;
         this.photo = photo;
         this.height = height;
@@ -47,7 +49,10 @@ public class Pokemon {
     }
      
     //setters
-
+    //set id value
+    public void setID(int value) {
+    	this.id = value;
+    }
     //set name value
     public void setName(String value){
         this.name = value;
@@ -93,6 +98,9 @@ public class Pokemon {
     }
 
     //getters
+    public int getID() {
+    	return id;
+    }
 
     //get the pokemons name
     public String getName(){
