@@ -47,11 +47,9 @@ public class PokeApiService {
 			// the total number of elements
 			pokemonList.setCount(result.getCount());
 			// the next elements of the list
-			if (result.getNext() != null)
-				pokemonList.setNext(result.getNext());
+			pokemonList.setNext(result.getNext());
 			// the previous elements of the list
-			if (result.getPrevious() != null)
-				pokemonList.setPrevious(result.getPrevious());
+			pokemonList.setPrevious(result.getPrevious());
 			ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
 			// for each pokemon from the external api list get the basic information of each
 			// one
@@ -126,15 +124,15 @@ public class PokeApiService {
 			PokemonApiSpecie specie = repository.getPokemonSpecie(nameOrID);
 			if (specie != null) {
 				PokemonApiChainEvolution chain = repository.getEvolutions(specie.getEvolutionChain().getUrl());
-				int characteristicID = repository.getPokemonCharacteristicID(pokemon.getStats());
-				// get the pokemon's description
-				if (characteristicID > 0) {
-					PokemonApiCharacteristic characteristic = repository.getPokemonCharacteristics(characteristicID);
-					if (characteristic != null) {
-						pokemon.setDescriptions(characteristic.getDescriptions());
-					}
-				}
 				pokemon.setEvolutions(chain);
+			}
+			int characteristicID = repository.getPokemonCharacteristicID(pokemon.getStats());
+			// get the pokemon's description
+			if (characteristicID > 0) {
+				PokemonApiCharacteristic characteristic = repository.getPokemonCharacteristics(characteristicID);
+				if (characteristic != null) {
+					pokemon.setDescriptions(characteristic.getDescriptions());
+				}
 			}
 
 		}
