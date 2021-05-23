@@ -142,7 +142,7 @@ public class PokemonApiRepositoryImpl implements PokemonApiRepositoryInterface{
             return result;
         }
         catch(HttpClientErrorException e){
-            throw new ApiNotFoundResponse(e.toString());
+            return null;
         }
         catch(Exception e){
             throw new InternalResponseError(e.toString());

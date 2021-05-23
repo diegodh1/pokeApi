@@ -25,8 +25,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PokeApiService {
-	
-	//variables
+
+	// variables
 	@Autowired
 	private PokemonApiRepositoryImpl repository;
 
@@ -42,7 +42,7 @@ public class PokeApiService {
 		PokemonApiListResponse result = repository.getAllPokemons(limit, offset);
 		// prepare the final response
 		PokemonListResponse pokemonList = new PokemonListResponse();
-		
+
 		if (result != null) {
 			// the total number of elements
 			pokemonList.setCount(result.getCount());
@@ -53,20 +53,22 @@ public class PokeApiService {
 			if (result.getPrevious() != null)
 				pokemonList.setPrevious(result.getPrevious());
 			ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
-			// for each pokemon from the external api list get the basic information of each one
+			// for each pokemon from the external api list get the basic information of each
+			// one
 			ArrayList<Callable<Pokemon>> callableTasks = new ArrayList<Callable<Pokemon>>();
 			for (int i = 0; i < result.getResults().size(); i++) {
 				callableTasks.add(getPokemon(result.getResults().get(i).getName()));
 			}
-			//create executor service to make asynchronous calls
+			// create executor service to make asynchronous calls
 			ExecutorService executorService = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
 					new LinkedBlockingQueue<Runnable>());
-			//call to all requests of asynchronous way and wait for results
+			// call to all requests of asynchronous way and wait for results
 			try {
-				ArrayList<Future<Pokemon>> futures = (ArrayList<Future<Pokemon>>) executorService.invokeAll(callableTasks);
+				ArrayList<Future<Pokemon>> futures = (ArrayList<Future<Pokemon>>) executorService
+						.invokeAll(callableTasks);
 				executorService.shutdown();
-				//get the results 
-				for(int j=0; j < futures.size(); j++) {
+				// get the results
+				for (int j = 0; j < futures.size(); j++) {
 					pokemons.add(futures.get(j).get());
 				}
 			} catch (InterruptedException e) {
@@ -76,14 +78,14 @@ public class PokeApiService {
 				executorService.shutdownNow();
 				throw new InternalResponseError(e.toString());
 			}
-			//final result
+			// final result
 			pokemonList.setResults(pokemons);
 		}
 		// return the pokemon list
 		return pokemonList;
 	}
 
-	//auxiliar method to create a Callable object
+	// auxiliar method to create a Callable object
 	Callable<Pokemon> getPokemon(String name) {
 		// return
 		Callable<Pokemon> result = new Callable<Pokemon>() {
@@ -102,7 +104,7 @@ public class PokeApiService {
 				return temp;
 			}
 		};
-		
+
 		return result;
 	}
 
@@ -122,16 +124,19 @@ public class PokeApiService {
 			pokemon.setAbilities(result.getAbilities());
 			pokemon.setTypes(result.getTypes());
 			PokemonApiSpecie specie = repository.getPokemonSpecie(nameOrID);
-			PokemonApiChainEvolution chain = repository.getEvolutions(specie.getEvolutionChain().getUrl());
-			int characteristicID = repository.getPokemonCharacteristicID(pokemon.getStats());
-			// get the pokemon's description
-			if (characteristicID > 0) {
-				PokemonApiCharacteristic characteristic = repository.getPokemonCharacteristics(characteristicID);
-				if (characteristic != null) {
-					pokemon.setDescriptions(characteristic.getDescriptions());
+			if (specie != null) {
+				PokemonApiChainEvolution chain = repository.getEvolutions(specie.getEvolutionChain().getUrl());
+				int characteristicID = repository.getPokemonCharacteristicID(pokemon.getStats());
+				// get the pokemon's description
+				if (characteristicID > 0) {
+					PokemonApiCharacteristic characteristic = repository.getPokemonCharacteristics(characteristicID);
+					if (characteristic != null) {
+						pokemon.setDescriptions(characteristic.getDescriptions());
+					}
 				}
+				pokemon.setEvolutions(chain);
 			}
-			pokemon.setEvolutions(chain);
+
 		}
 		// only returns if the pokemon exists if not we throw an exception 404 not found
 		return pokemon;
