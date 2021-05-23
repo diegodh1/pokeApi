@@ -114,7 +114,7 @@ public class PokeApiService {
 		PokemonInfoApiResponse result = repository.getPokemonInfo(nameOrID);
 		if (result != null) {
 			// setting the attributes
-			pokemon.setPhoto(result.getSprites().getOther().getDreamWorld().getFrontDefault());
+			pokemon.setPhoto(result.getSprites().getOther().getOfficialArtWork().getFrontDefault());
 			pokemon.setHeight(result.getHeight());
 			pokemon.setWeight(result.getWeight());
 			pokemon.setName(result.getName());

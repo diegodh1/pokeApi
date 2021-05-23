@@ -2,13 +2,14 @@ package com.example.poke.pokeApi.models.ExternalApi;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonApiOther {
     //variables
     @JsonAlias("dream_world")
     private PokemonApiPhoto dreamWorld;
-    @JsonAlias("official-artwork")
+    @JsonProperty("official-artwork")
     private PokemonApiPhoto officialArtwork;
 
     //empty constructor
