@@ -93,7 +93,7 @@ public class PokeApiService {
 				// the code below is only possible if pokemon exists
 				Pokemon temp = new Pokemon();
 				temp.setID(pokemonTemp.getID());
-				temp.setPhoto(pokemonTemp.getSprites().getOther().getDreamWorld().getFrontDefault());
+				temp.setPhoto(pokemonTemp.getSprites().getOther().getOfficialArtWork().getFrontDefault());
 				temp.setHeight(pokemonTemp.getHeight());
 				temp.setWeight(pokemonTemp.getWeight());
 				temp.setName(pokemonTemp.getName());
